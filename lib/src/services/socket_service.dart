@@ -16,7 +16,7 @@ class SocketService {
   createSocketConnection() {
     _userController.add(friends[0]);
     _userInfo = friends[0];
-    this.socket = IO.io('http://localhost:3000/',
+    this.socket = IO.io('http://172.10.100.74:3000/',
         IO.OptionBuilder().setTransports(['websocket']).build());
     this.socket.connect();
     this.socket.onConnect((_) {

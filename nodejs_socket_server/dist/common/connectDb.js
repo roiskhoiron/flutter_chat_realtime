@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 connectDatabase = () => {
-  mongoose.connect(`${process.env.DB_URL}`, {
-    //mongoose.connect(`mongodb://${process.env.DB_URL}/${process.env.DB_NAME}`, {
+  // mongoose.connect(`${process.env.DB_URL}`, {
+  mongoose.connect(`mongodb://${process.env.DB_URL}/${process.env.DB_NAME}`, {
     useUnifiedTopology: true,
     useFindAndModify: false,
     useNewUrlParser: true,
