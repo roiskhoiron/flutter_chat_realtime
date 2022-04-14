@@ -11,7 +11,9 @@ class SocketService {
   final _scrollController = ScrollController();
   var _userInfo, _room = 'Selena';
   List<dynamic> _allMessage = [];
-  IO.Socket socket;
+  late IO.Socket socket;
+
+  get room => _room;
 
   createSocketConnection() {
     _userController.add(friends[0]);
@@ -20,6 +22,7 @@ class SocketService {
         IO.OptionBuilder().setTransports(['websocket']).build());
     this.socket.connect();
     this.socket.onConnect((_) {
+      print('connect');
       this.socket.emit('join', myId);
       // Join room
       this.socket.emit('subscribe', _room);
@@ -29,6 +32,7 @@ class SocketService {
 
     this.socket.onDisconnect((_) => print('disconnect'));
   }
+
 
   subscribe() {
     this.socket.on('$myId-$_room-history', (data) {

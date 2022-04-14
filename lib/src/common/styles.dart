@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-var myId = GetPlatform.isWeb.toString();
+var myId = GetPlatform.isIOS.toString();
 var height = Get.height;
 var width = Get.width;
 
@@ -96,7 +96,7 @@ BoxDecoration nMbtn = BoxDecoration(
 class NMButton extends StatelessWidget {
   final bool down;
   final IconData icon;
-  const NMButton({this.down, this.icon});
+  const NMButton({required this.down, required this.icon});
   @override
   Widget build(BuildContext context) {
     return Container(

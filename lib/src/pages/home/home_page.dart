@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_chat_socket/main.dart';
 import 'package:flutter_chat_socket/src/common/styles.dart';
 import 'package:flutter_chat_socket/src/pages/drawer/drawer.dart';
+import 'package:flutter_chat_socket/src/pages/home/video_call.dart';
 import 'package:flutter_chat_socket/src/services/socket_service.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -35,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   openDrawer() {
-    _scaffoldKey.currentState.openEndDrawer();
+    _scaffoldKey.currentState?.openEndDrawer();
   }
 
   @override
@@ -62,7 +64,7 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
           onPressed: () => null,
           icon: Icon(
-            Feather.arrow_left,
+            FeatherIcons.arrowLeft,
             color: colorPrimary,
             size: 22.5,
           ),
@@ -88,27 +90,29 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 SizedBox(width: 12.0),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      snapshot.data['name'],
-                      style: TextStyle(
-                        color: colorTitle,
-                        fontSize: 16.5,
-                        fontWeight: FontWeight.w600,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        snapshot.data['name'],
+                        style: TextStyle(
+                          color: colorTitle,
+                          fontSize: 16.5,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Text(
-                      'Active Now',
-                      style: TextStyle(
-                        color: Colors.green.shade400,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w400,
+                      SizedBox(height: 4.0),
+                      Text(
+                        'Active Now',
+                        style: TextStyle(
+                          color: Colors.green.shade400,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             );
@@ -118,16 +122,16 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () => null,
             icon: Icon(
-              Feather.phone,
+              FeatherIcons.phone,
               size: 22.5,
               color: colorPrimary,
             ),
           ),
           SizedBox(width: 8.0),
           IconButton(
-            onPressed: () => null,
+            onPressed: () => Get.to(VideoCall()),
             icon: Icon(
-              Feather.video,
+              FeatherIcons.video,
               size: 22.5,
               color: colorPrimary,
             ),
@@ -136,7 +140,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: () => openDrawer(),
             icon: Icon(
-              Feather.sidebar,
+              FeatherIcons.sidebar,
               size: 22.5,
               color: colorPrimary,
             ),
@@ -287,7 +291,7 @@ class _HomePageState extends State<HomePage> {
                   IconButton(
                     onPressed: () => submitMsg(_msg),
                     icon: Icon(
-                      Feather.send,
+                      FeatherIcons.send,
                       color: _msg.length == 0 ? fCD : colorPrimary,
                       size: 30.0,
                     ),

@@ -1,7 +1,8 @@
+const app = require('express')();
+const {Server} = require('socket.io');
 require("dotenv").config();
-const express = require("express");
-const app = express();
-const server = require("http").Server(app);
+
+const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const connectDatabase = require("./common/connectDb");
 const { getAllMessages, addMessage } = require("./controllers/Message");
@@ -40,6 +41,20 @@ io.on("connection", function (socket) {
   socket.on("unsubscribe", function (roomInfo) {
     socket.leave(roomInfo);
     socket.removeAllListeners(roomInfo);
+  });
+
+  socket.on('join-video-call', (roomName) => {
+    socket.join(roomName);
+    socket.to(roomName).emit('joined', roomName);
+  });
+  socket.on('offer', (data) => {
+    socket.to(data.roomName).emit('offer', data.offer);
+  });
+  socket.on('answer', (data) => {
+    socket.to(data.roomName).emit('answer', data.answer);
+  });
+  socket.on('ice', (data) => {
+    socket.to(data.roomName).emit('ice', data.ice);
   });
 });
 

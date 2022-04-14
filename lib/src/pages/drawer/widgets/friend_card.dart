@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_socket/main.dart';
 import 'package:flutter_chat_socket/src/common/styles.dart';
 import 'package:flutter_chat_socket/src/services/socket_service.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 
 class FriendCard extends StatefulWidget {
-  final String name;
-  final String image;
-  FriendCard({this.name, this.image});
+  final String? name;
+  final String? image;
+  FriendCard({ this.name,  this.image});
   @override
   State<StatefulWidget> createState() => _FriendCardState();
 }
@@ -31,7 +31,7 @@ class _FriendCardState extends State<FriendCard> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: NetworkImage(widget.image),
+                    image: NetworkImage(widget.image!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -41,7 +41,7 @@ class _FriendCardState extends State<FriendCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.name,
+                    widget.name!,
                     style: TextStyle(
                       color: colorTitle,
                       fontSize: 16.5,
@@ -72,7 +72,7 @@ class _FriendCardState extends State<FriendCard> {
               Get.back();
             },
             icon: Icon(
-              Feather.message_square,
+              FeatherIcons.messageSquare,
               color: colorPrimary,
               size: 20.0,
             ),

@@ -3,7 +3,7 @@ import 'package:flutter_chat_socket/src/common/styles.dart';
 import 'package:flutter_chat_socket/src/pages/drawer/widgets/friend_card.dart';
 import 'package:flutter_chat_socket/src/repository/friend_repository.dart';
 import 'package:flutter_chat_socket/src/repository/group_repository.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class DrawerLayout extends StatefulWidget {
   @override
@@ -64,7 +64,7 @@ class _DrawerLayoutState extends State<DrawerLayout> {
                 IconButton(
                   onPressed: () => null,
                   icon: Icon(
-                    Feather.sun,
+                    FeatherIcons.sun,
                     color: colorPrimary,
                     size: 20.0,
                   ),
