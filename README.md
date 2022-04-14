@@ -23,7 +23,10 @@
 - 🚀 Write extend channel in socket server ***nodejs_socket_server folder***
 - 🚀 Listen and emit new channel in ***socket_service.dart*** file in flutter project
 
-### Author: lambiengcode
+### Author: RoisKhoiron
+### Reference 
+- https://github.com/hongvinhmobile/flutter_chat_realtime/
+- 
 
 ### Screenshots
 - 🚀 Below is video demo between linux desktop app and web platform
