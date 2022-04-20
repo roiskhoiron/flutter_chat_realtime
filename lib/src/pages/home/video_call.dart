@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import '../../../main.dart';
@@ -17,6 +18,7 @@ class VideoCall extends StatefulWidget {
 class _VideoCallState extends State<VideoCall> {
   final _localRenderer = RTCVideoRenderer();
   final _remoteRenderer = RTCVideoRenderer();
+  var ringing = true;
   MediaStream? _localStream;
   RTCPeerConnection? pc;
   var socket = injector.get<SocketService>().socket;
@@ -29,7 +31,7 @@ class _VideoCallState extends State<VideoCall> {
     super.initState();
   }
 
-  Future init() async{
+  Future init() async {
     await _localRenderer.initialize();
     await _remoteRenderer.initialize();
 
@@ -38,22 +40,24 @@ class _VideoCallState extends State<VideoCall> {
   }
 
   /// konfigurasi [IO.Socket] client dan setup Listener event
-  Future connectSocket() async{
+  Future connectSocket() async {
     socket.onConnect((data) => print('연결 완료 !'));
 
-    socket.on('joined', (data){
+    socket.on('joined', (data) {
       _sendOffer();
     });
 
+    socket.on('pre-offer', (data) => {
+      print('panggilan masuk')
+    });
 
-    socket.on('offer', (data) async{
+    socket.on('offer', (data) async {
       data = jsonDecode(data);
       await _gotOffer(RTCSessionDescription(data['sdp'], data['type']));
       await _sendAnswer();
     });
 
-
-    socket.on('answer', (data){
+    socket.on('answer', (data) {
       data = jsonDecode(data);
       _gotAnswer(RTCSessionDescription(data['sdp'], data['type']));
     });
@@ -64,6 +68,13 @@ class _VideoCallState extends State<VideoCall> {
           data['candidate'], data['sdpMid'], data['sdpMLineIndex']));
     });
   }
+
+  Future exitRoom() async {
+    pc!.close();
+    socket.emit('pre-offer-answer', {'callerId': 'callerId', 'type':'typeID'});
+    Get.back();
+  }
+
 
   /// melakukan request join ke [IO.Socket]
   /// room dengan properti configurasi
@@ -110,7 +121,15 @@ class _VideoCallState extends State<VideoCall> {
 
     _localRenderer.srcObject = _localStream; // RTC Video local dimuat disini
 
-    socket.emit('join-video-call', room);
+    socket.emit('pre-offer', room);
+
+    setState(() {});
+  }
+
+
+  Future _sendPreOffer() async {
+    print('send pre-offer');
+    socket.emit('pre-offer', {'caller': 'callerID', 'callee':'callee'});
   }
 
   /// jika ada yang berhasil join dalam room maka saya akan mengirimkan
@@ -119,7 +138,8 @@ class _VideoCallState extends State<VideoCall> {
     print('send offer');
     var offer = await pc!.createOffer();
     pc!.setLocalDescription(offer);
-    socket.emit('offer', {'offer': jsonEncode(offer.toMap()), 'roomName': room});
+    socket
+        .emit('offer', {'offer': jsonEncode(offer.toMap()), 'roomName': room});
   }
 
   /// ketika ada penwaran pairing peer connection maka kita akan mersepon dengan
@@ -135,7 +155,8 @@ class _VideoCallState extends State<VideoCall> {
     print('send answer');
     var answer = await pc!.createAnswer();
     pc!.setLocalDescription(answer);
-    socket.emit('answer', {'answer': jsonEncode(answer.toMap()), 'roomName': room});
+    socket.emit(
+        'answer', {'answer': jsonEncode(answer.toMap()), 'roomName': room});
   }
 
   /// mendapatkan konfigurasi peer-connection dan kofigurasi lawan pairing kita

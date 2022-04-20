@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_socket/src/pages/home/home_page.dart';
+import 'package:flutter_chat_socket/src/pages/home/messages.dart';
 
 class App extends StatefulWidget {
   @override
@@ -14,6 +15,6 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return HomePage();
+    return Messages();
   }
 }

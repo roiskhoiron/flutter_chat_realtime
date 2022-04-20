@@ -86,8 +86,8 @@ class _DrawerLayoutState extends State<DrawerLayout> {
             itemCount: friends.length,
             itemBuilder: (context, index) {
               return FriendCard(
-                name: friends[index]['name'],
-                image: friends[index]['image'],
+                name: friends[index]['name'] as String,
+                image: friends[index]['image'] as String,
               );
             },
           ),

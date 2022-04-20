@@ -5,7 +5,7 @@ require("dotenv").config();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
 const connectDatabase = require("./common/connectDb");
-const { getAllMessages, addMessage } = require("./controllers/Message");
+const { getAllUsers, getAllMessages, addMessage, createHuman } = require("./controllers/Message");
 
 connectDatabase();
 
@@ -18,7 +18,13 @@ io.on("connection", function (socket) {
 
   socket.on("subscribe", async function (roomInfo) {
     socket.join(roomInfo);
+
+    const users = await getAllUsers();
+    io.emit('list-user', users);
+
     const history = await getAllMessages(roomInfo);
+    console.log("kiiii", history);
+
     io.emit(`${id}-${roomInfo}-history`, history);
 
     socket.on(roomInfo, async function (msg) {
@@ -47,6 +53,7 @@ io.on("connection", function (socket) {
     socket.join(roomName);
     socket.to(roomName).emit('joined', roomName);
   });
+  socket.on('pre-offer', data => {});
   socket.on('offer', data => {
     socket.to(data.roomName).emit('offer', data.offer);
   });

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-var myId = GetPlatform.isIOS.toString();
+var myId = GetPlatform.isWeb.toString();
 var height = Get.height;
 var width = Get.width;
 
