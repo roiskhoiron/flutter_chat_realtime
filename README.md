@@ -1,7 +1,7 @@
 ## Flutter Chat Socket
 
 ### Description:
-- 🚀 This application using Flutter for develop a realtime chat app
+- 🚀 This application using Flutter for develop a realtime chat apps
 
 ### How I can run it?
 - 🚀 Clone this repository
