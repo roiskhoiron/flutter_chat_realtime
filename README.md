@@ -5,7 +5,7 @@
 
 ### How I can run it?
 - 🚀 Clone this repository
-- 🚀 Run below code in terminal of project
+- 🚀 Run below code in terminal of project thanks
 
   - start socket server 
   ```terminal
