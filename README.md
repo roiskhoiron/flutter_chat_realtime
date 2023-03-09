@@ -1,11 +1,11 @@
 ## Flutter Chat Socket
 
 ### Description:
-- 🚀 This application using Flutter for develop a realtime chat app
+- 🚀 This application using Flutter for develop a realtime chat apps by Rois Khoiron.
 
 ### How I can run it?
 - 🚀 Clone this repository
-- 🚀 Run below code in terminal of project
+- 🚀 Run below code in terminal of project thanks
 
   - start socket server 
   ```terminal
@@ -23,9 +23,14 @@
 - 🚀 Write extend channel in socket server ***nodejs_socket_server folder***
 - 🚀 Listen and emit new channel in ***socket_service.dart*** file in flutter project
 
-### Author: lambiengcode
+### Author: RoisKhoiron
+### Reference 
+- https://github.com/hongvinhmobile/flutter_chat_realtime/
+- 
 
 ### Screenshots
 - 🚀 Below is video demo between linux desktop app and web platform
  
 <img src="https://github.com/hongvinhmobile/flutter_chat_realtime/blob/master/screenshots/socket.gif?raw=true" width="1280"/>
+
+### Thanks For Watching
